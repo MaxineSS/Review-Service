@@ -30,7 +30,3 @@ MongoClient.connect(uri, { maxPoolSize: 50 })
 app.use("/reviews", reviews)
 app.get('/', (req, res) => res.status(200).json('main route'))
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }))
-
-// app.listen(port, () => {
-//   console.log(`Server is listening on port: ${port}`)
-// });
