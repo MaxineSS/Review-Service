@@ -1,7 +1,7 @@
 const express = require('express');
+const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 const reviews = require('./api/reviews.route.js');
-const { MongoClient } = require('mongodb');
 const ReviewModel = require('./model/reviews.model.js');
 const MetaModel = require('./model/metadata.model.js');
 const app = express();
