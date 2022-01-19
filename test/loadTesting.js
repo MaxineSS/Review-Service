@@ -24,6 +24,6 @@ export default function () {
     photos: ['this is test url://hot'],
     characteristics: { '3299897': 2, '3299898': 3, '3299899': 1, '3299900': 4 }
   }
-  http.post(url, payload, { headers: { 'Content-Type': 'x-www-form-urlencoded' } })
+  http.post(url, JSON.stringify(payload), {headers: { 'Content-Type': 'application/json' }})
   sleep(2)
 };
