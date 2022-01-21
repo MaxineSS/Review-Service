@@ -1,4 +1,4 @@
-const newrelic = require('newrelic');
+// const newrelic = require('newrelic');
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
@@ -14,7 +14,7 @@ const uri = process.env.DB_URI;
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-MongoClient.connect(uri, { maxPoolSize: 50 })
+MongoClient.connect(uri, { maxPoolSize: 100 })
   .then(async client => {
   await ReviewModel.injectDB(client);
   await MetaModel.injectDB(client);
