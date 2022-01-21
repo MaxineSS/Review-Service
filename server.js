@@ -14,7 +14,7 @@ const uri = process.env.DB_URI;
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-MongoClient.connect(uri, { maxPoolSize: 100 })
+MongoClient.connect(uri, { maxPoolSize: 50 })
   .then(async client => {
   await ReviewModel.injectDB(client);
   await MetaModel.injectDB(client);
