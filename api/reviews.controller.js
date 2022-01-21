@@ -52,7 +52,8 @@ module.exports = {
 
     let newReviewId;
     try {
-      newReviewId = await ReviewModel.getLastInsertedDoc() + 1;
+      // newReviewId = await ReviewModel.getLastInsertedDoc() + 1;
+      newReviewId = Date.now();
       part1.review_id = newReviewId;
       part2._id = newReviewId;
     } catch (e) {
