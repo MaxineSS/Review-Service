@@ -33,24 +33,25 @@ module.exports = {
       return arrCursor;
     } catch (e) {
       console.error(`Uhhh, unable to proceed aggregation, ${e}`)
-      return { results: [] };
+      return { error: e }
     }
   },
   addMetadata: async (data) => {
     try {
-      const cursor = await metadata.insertOne(data)
-      return cursor;
+      await metadata.insertOne(data)
+      return 'Successfully inserted into metadata';
     } catch (e) {
       console.error(`Uhhh, unalbe to insert to database ${e}`)
+      return { error: e }
     }
   },
   getCharsName: async (id) => {
     try {
-      const cursor = await characteristics.findOne({ 'id': id }, { 'projection': { _id: 0, name: 1 }})
+      const cursor = await characteristics.findOne({ 'id': id })
       return cursor.name;
     } catch (e) {
       console.error(`Uhhh, no characteristic ID found with the id ${e}`)
-      return '';
+      return { error: e }
     }
   },
 

@@ -46,7 +46,7 @@ module.exports = {
       return reviewList;
     } catch (e) {
       console.error(`Uhhh, unable to convert cursor to array, ${e}`)
-      return { results: [] }
+      return { 'error': e }
     }
   },
   getLastInsertedDoc: async () => {
@@ -74,8 +74,7 @@ module.exports = {
   },
   createReview: async (part1, part2) => {
     try {
-      await reviews.insertOne(part1)
-      return await MetaModel.addMetadata(part2)
+      await Promise.all([reviews.insertOne(part1), MetaModel.addMetadata(part2)])
     } catch (e) {
       console.error(`Uhhh, unable to post review ${e}`)
       return { 'error': e }
