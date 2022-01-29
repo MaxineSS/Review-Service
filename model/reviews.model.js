@@ -74,7 +74,7 @@ module.exports = {
   },
   createReview: async (part1, part2) => {
     try {
-      await Promise.all([reviews.insertOne(part1), MetaModel.addMetadata(part2)])
+      return await Promise.all([reviews.insertOne(part1), MetaModel.addMetadata(part2)])
     } catch (e) {
       console.error(`Uhhh, unable to post review ${e}`)
       return { 'error': e }
