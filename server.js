@@ -29,8 +29,8 @@ MongoClient.connect(uri, { maxPoolSize: 50 })
 })
 
 app.use("/reviews", reviews)
-app.get('/loaderio-293591338c16b52708af520ffc3c86e2', (req, res) => {
-  res.send('loaderio-293591338c16b52708af520ffc3c86e2')
+app.get('/loaderio-8b377618aad9d93969038af260fe392e', (req, res) => {
+  res.send('loaderio-8b377618aad9d93969038af260fe392e')
 })
 app.get('/', (req, res) => res.status(200).json('main route'))
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }))
