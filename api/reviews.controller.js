@@ -29,7 +29,7 @@ module.exports = {
               count: count,
               results: reviewList
             }
-            await client.set(`reviews:${product_id}`, JSON.stringify(response), { EX: 600, NX: true })
+            await client.set(`reviews:${product_id}`, JSON.stringify(response), 'EX', 60*60*24)
             res.status(200).json(response)
           }
         })

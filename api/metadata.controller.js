@@ -28,7 +28,7 @@ module.exports = {
               recommended: collected.ratings,
               characteristics: calculated
             };
-            await client.set(`meta:${product_id}`, JSON.stringify(response), { EX: 600, NX: true })
+            await client.set(`meta:${product_id}`, JSON.stringify(response), 'EX', 60*60*24)
             res.status(200).json(response)
           }
         })
