@@ -1,7 +1,15 @@
+let client;
 const ReviewModel = require('../model/reviews.model.js')
 const MetaModel = require('../model/metadata.model.js')
 
 module.exports = {
+  initializeCache: (redis) => {
+    try {
+      client = redis
+    } catch (e) {
+      console.error(e)
+    }
+  },
   apiGetReviews: async (req, res) => {
     const page = req.query.page ? Number(req.query.page) : 0;
     const count = req.query.count ? Number(req.query.count) : 5;
@@ -9,14 +17,23 @@ module.exports = {
     const product_id = Number(req.query.product_id);
 
     try {
-      const reviewList = await ReviewModel.getReviews(page, count, sort, product_id)
-      let response = {
-        product: product_id,
-        page: page,
-        count: count,
-        results: reviewList
-      }
-      res.status(200).json(response)
+      client.get(`reviews:${product_id}`)
+        .then(async (reviews) => {
+          if (reviews) {
+            res.status(200).json(JSON.parse(reviews))
+          } else {
+            let reviewList = await ReviewModel.getReviews(page, count, sort, product_id)
+            let response = {
+              product: product_id,
+              page: page,
+              count: count,
+              results: reviewList
+            }
+            await client.set(`reviews:${product_id}`, JSON.stringify(response), { EX: 600, NX: true })
+            res.status(200).json(response)
+          }
+        })
+        .catch((e) => console.log(e))
     } catch (e) {
       res.status(500).json({ error: e })
     }

@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "mongodb": "^4.2.2",
     "newrelic": "^8.7.1",
+    "redis": "^4.0.2",
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
