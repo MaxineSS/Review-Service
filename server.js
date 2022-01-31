@@ -1,13 +1,15 @@
 // const newrelic = require('newrelic');
 const express = require('express');
 const { MongoClient } = require('mongodb');
-const bodyParser = require('body-parser');
-const app = express();
-const redis = require('redis').createClient();
-
 const dotenv = require('dotenv').config();
+
 const port = process.env.SERVER_PORT;
 const uri = process.env.DB_URI;
+const redisURL = process.env.REDIS_URL;
+
+const bodyParser = require('body-parser');
+const app = express();
+const redis = require('redis').createClient({ url: redisURL }) ;
 
 const reviews = require('./api/reviews.route.js');
 const ReviewModel = require('./model/reviews.model.js');
@@ -24,10 +26,9 @@ MongoClient.connect(uri, { maxPoolSize: 50 })
     await MetaModel.injectDB(client);
     console.log('💃 Connected successfully to mongodb server');
 
-    await redis.connect();
-
     redis.on('error', (err) => console.log('Redis Client Error', err));
     redis.on('connect', () => console.log('💃 Connected successfully to redis server'));
+    await redis.connect();
 
     Rctr.initializeCache(redis)
     Mctr.initializeCache(redis)
