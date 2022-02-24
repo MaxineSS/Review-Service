@@ -11,6 +11,12 @@ schemes:
 host: 54.90.132.109
 basePath: /reviews
 
+securityDefinitions:
+  UserSecurity:
+   type: basic
+security:
+  - UserSecurity: []
+  
 # tags are used for organizing operations
 tags:
 - name: Reviews
