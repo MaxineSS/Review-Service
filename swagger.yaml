@@ -13,16 +13,16 @@ basePath: /reviews
 
 # tags are used for organizing operations
 tags:
-- name: reviews
+- name: Reviews
   description: Operations available to all users
-- name: metadata
+- name: Metadata
   description: Operations available to all users
   
 paths:
   /:
     get:
       tags:
-      - reviews
+      - Reviews
       summary: Search reviews
       description: |
         By passing in the appropriate options, you can search for
@@ -54,7 +54,7 @@ paths:
           description: bad input parameter
     post:
       tags:
-      - reviews
+      - Reviews
       summary: Add new review to database
       description: adds new review to database
       consumes:
@@ -75,7 +75,7 @@ paths:
   /{review_id}/helpful:
     put:
       tags:
-      - reviews
+      - Reviews
       summary: Update review helpfulness state
       description: |
         By passing in the appropriate review id, you can update count of
@@ -101,7 +101,7 @@ paths:
   /{review_id}/report:
     put:
       tags:
-      - reviews
+      - Reviews
       summary: Update review report state
       description: |
         By passing in the appropriate review id, you can update report property in given review in the system
@@ -123,6 +123,30 @@ paths:
                 example: Reported
         100:
          description: Invalid request
+  /meta:
+    get:
+      tags:
+      - Metadata
+      summary: Search metadata to given product
+      description: |
+        By passing in the appropriate product id, you can search for
+        accumulated metadata from reviews to given product-id in the system
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: product_id
+        description: pass `product-id` for looking up metadata to given product-id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: search results matching product-id
+          schema:
+            $ref: '#/definitions/Meta'
+        404:
+          description: bad input parameter
+  
 definitions:
   Reviews:
     type: object
@@ -233,3 +257,55 @@ definitions:
       url:
         type: string
         example: "https://ucarecdn.com/f1f74d13-d6fb-410d-881b-abbb552f8c80/OlaSittingontheFloor.svg"
+  Meta:
+    type: object
+    properties:
+      product_id:
+        type: integer
+        example: 59556
+      ratings:
+        type: object
+        example: {
+        "1": 1,
+        "2": 2,
+        "4": 1,
+        "5": 1
+    }
+      recommended:
+        type: object
+        example: {
+        "1": 1,
+        "2": 2,
+        "4": 1,
+        "5": 1
+    }
+      characteristics:
+        $ref: '#/definitions/Characteristics'
+  Characteristics:
+    type: object
+    properties:
+      fit:
+        type: object
+        example: { '1': 1, '2': 2, '4': 2, id: 3012685, value: 2.6 }
+      Comfort:
+        type: object
+        example: { '1': 1, '3': 1, '5': 3,' id': 3012687, 'value': 3.8 }
+      Quality:
+        type: object
+        example:  {
+            "4": 3,
+            "5": 2,
+            "id": 3012688,
+            "value": 4.4
+        }
+      Length:
+        type: object
+        example: {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "id": 3012686,
+            "value": 3
+        }
