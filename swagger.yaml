@@ -150,11 +150,6 @@ paths:
 definitions:
   Reviews:
     type: object
-    required:
-    - product
-    - page
-    - count
-    - results
     properties:
       product:
         type: integer
@@ -171,8 +166,6 @@ definitions:
           $ref: '#/definitions/Review'
   Review:
     type: object
-    required:
-    - product_id
     properties:
       _id:
         type: string
@@ -222,6 +215,13 @@ definitions:
     type: object
     required:
     - product_id
+    - name
+    - email
+    - recommend
+    - summary
+    - body
+    - rating
+    - characteristics
     properties:
       product_id:
         type: integer
