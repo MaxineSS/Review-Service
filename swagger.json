@@ -1,0 +1,231 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a Review API for Atelier e-commerse shop.",
+    "version" : "1.0.0",
+    "title" : "Review API",
+    "contact" : {
+      "email" : "sejin.maxine@gmail.com"
+    }
+  },
+  "schemes" : [ "http" ],
+  "host" : "54.90.132.109",
+  "basePath" : "/reviews",
+  "tags" : [ {
+    "name" : "reviews",
+    "description" : "Operations available to all users"
+  } ],
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "reviews" ],
+        "summary" : "Search reviews",
+        "description" : "By passing in the appropriate options, you can search for\nregistered reviews to given product-id in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "product_id",
+          "description" : "pass `product-id` for looking up reviews to given product-id",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "query",
+          "name" : "page",
+          "description" : "number of records to skip for pagination",
+          "type" : "integer"
+        }, {
+          "in" : "query",
+          "name" : "count",
+          "description" : "number of records to return",
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching product-id",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Reviews"
+              }
+            }
+          },
+          "404" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "reviews" ],
+        "summary" : "adds new review to database",
+        "description" : "adds new review to database",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "review",
+          "description" : "new review object to add",
+          "schema" : {
+            "$ref" : "#/definitions/NewReview"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "review created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Reviews" : {
+      "type" : "object",
+      "required" : [ "product", "page", "count", "results" ],
+      "properties" : {
+        "product" : {
+          "type" : "integer",
+          "example" : 59556
+        },
+        "page" : {
+          "type" : "integer",
+          "example" : 0
+        },
+        "count" : {
+          "type" : "integer",
+          "example" : 5
+        },
+        "results" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Review"
+          }
+        }
+      }
+    },
+    "Review" : {
+      "type" : "object",
+      "required" : [ "product_id" ],
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "example" : "61de37530278bfe503a2b276"
+        },
+        "body" : {
+          "type" : "string",
+          "example" : "I really did or did not like this product based on whether it was sustainably sourced.  Then I found out that its made from nothing at all."
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2020-07-30T03:41:21.467Z"
+        },
+        "helpfulness" : {
+          "type" : "integer",
+          "example" : 8
+        },
+        "photos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Photo"
+          }
+        },
+        "product_id" : {
+          "type" : "integer",
+          "example" : 59556
+        },
+        "rating" : {
+          "type" : "integer",
+          "example" : 5
+        },
+        "recommend" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "reported" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "response" : {
+          "type" : "string",
+          "example" : "Thank you for the great review!"
+        },
+        "review_id" : {
+          "type" : "integer",
+          "example" : 578413
+        },
+        "reviewer_email" : {
+          "type" : "string",
+          "example" : "Davion59@gmail.com"
+        },
+        "reviewer_name" : {
+          "type" : "string",
+          "example" : "Alverta"
+        },
+        "summary" : {
+          "type" : "string",
+          "example" : "This product was ok!"
+        }
+      }
+    },
+    "NewReview" : {
+      "type" : "object",
+      "required" : [ "product_id" ],
+      "properties" : {
+        "product_id" : {
+          "type" : "integer",
+          "example" : 59556
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Alverta"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "Davion59@gmail.com"
+        },
+        "recommend" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "summary" : {
+          "type" : "string",
+          "example" : "This product was ok!"
+        },
+        "body" : {
+          "type" : "string",
+          "example" : "I really did or did not like this product based on whether it was sustainably sourced.  Then I found out that its made from nothing at all."
+        },
+        "rating" : {
+          "type" : "integer",
+          "example" : 5
+        },
+        "photos" : {
+          "type" : "array",
+          "items" : {
+            "example" : "https://ucarecdn.com/f1f74d13-d6fb-410d-881b-abbb552f8c80/OlaSittingontheFloor.svg"
+          }
+        },
+        "characteristics" : {
+          "type" : "object",
+          "example" : {
+            "2761908" : 2,
+            "2761910" : 3,
+            "2761911" : 1,
+            "2761909" : 4
+          }
+        }
+      }
+    },
+    "Photo" : {
+      "type" : "object",
+      "properties" : {
+        "url" : {
+          "type" : "string",
+          "example" : "https://ucarecdn.com/f1f74d13-d6fb-410d-881b-abbb552f8c80/OlaSittingontheFloor.svg"
+        }
+      }
+    }
+  }
+}
