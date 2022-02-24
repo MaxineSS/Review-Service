@@ -56,7 +56,7 @@
       },
       "post" : {
         "tags" : [ "reviews" ],
-        "summary" : "adds new review to database",
+        "summary" : "Add new review to database",
         "description" : "adds new review to database",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
