@@ -11,13 +11,13 @@ schemes:
 host: 54.90.132.109
 basePath: /reviews
 
-securityDefinitions:
-  api_key:
-   type: apiKey
-   name: Google API key
-   in: query
-security:
-  - api_key: []
+#securityDefinitions:
+  #api_key:
+   #type: apiKey
+   #name: Google API key
+   #in: query
+#security:
+  #- api_key: []
   
 # tags are used for organizing operations
 tags:
