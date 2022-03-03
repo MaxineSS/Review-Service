@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: This is a Review API with a back end system that can support the 5.8M data set for Atelier E-commerse shop.
+  description: This is a Review API with a back end system that can support the 5.8M data set for Atelier e-commerce shop.
   version: 1.0.0
   title: Review API
   # put the contact info for your development or API team
