@@ -1,7 +1,7 @@
 {
   "name": "review-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "A review API with back end system that can support the full data set for Atelier e-commerse shop.",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -23,5 +23,5 @@
     "nodemon": "^2.0.14",
     "supertest": "^6.1.6"
   },
-  "author": "Maxine"
+  "author": "Maxine Majnaric"
 }
