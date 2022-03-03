@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: This is a Review API for Atelier e-commerse shop.
+  description: This is a Review API with a back end system that can support the 5.8M data set for Atelier E-commerse shop.
   version: 1.0.0
   title: Review API
   # put the contact info for your development or API team
@@ -13,7 +13,12 @@ basePath: /reviews
 
 securityDefinitions:
   UserSecurity:
-   type: basic
+   type: oauth2
+   authorizationUrl: http://swagger.io/api/oauth/dialog
+   flow: implicit
+   scopes:
+      read:reviews: read reviews to given product id
+      read:metadata: read metadata to given product id
 security:
   - UserSecurity: []
   
@@ -29,40 +34,43 @@ paths:
     get:
       tags:
       - Reviews
-      summary: Search reviews
-      description: |
-        By passing in the appropriate options, you can search for
-        registered reviews to given product-id in the system
+      summary: Retrieve reviews
+      description: Returns a list of reviews for a particular product. 
+                   This list does not include any reported reviews.
       produces:
       - application/json
       parameters:
       - in: query
         name: product_id
-        description: pass `product-id` for looking up reviews to given product-id
+        description: Specifies the product for which to retrieve reviews.
         required: true
         type: integer
       - in: query
+        name: sort
+        description: Changes the sort order of reviews to be based on "newest", "helpful", or "relevant"
+        type: string
+      - in: query
         name: page
-        description: number of records to skip for pagination
+        description: Selects the page of results to return. Default 0.
         type: integer
       - in: query
         name: count
-        description: number of records to return
+        description: Specifies how many results per page to return. Default 5.
         type: integer
       responses:
         200:
-          description: search results matching product-id
+          description: Search results matching product-id
           schema:
             type: array
             items:
               $ref: '#/definitions/Reviews'
         404:
-          description: bad input parameter
+          description: Bad input parameter
     post:
       tags:
       - Reviews
-      summary: Add new review to database
-      description: adds new review to database
+      summary: Add a new review
+      description: Adds a review for the given product.
       consumes:
       - application/json
       produces:
@@ -70,27 +78,26 @@ paths:
       parameters:
       - in: body
         name: review
-        description: new review object to add
+        description: New review object to add
         schema:
           $ref: '#/definitions/NewReview'
       responses:
         201:
-          description: review created
+          description: Review created
         400:
-          description: invalid input, object invalid
+          description: Invalid input, Object invalid
   /{review_id}/helpful:
     put:
       tags:
       - Reviews
       summary: Update review helpfulness state
-      description: |
-        By passing in the appropriate review id, you can update count of
-        helpfulness property in given review in the system
+      description: Updates a review to show it was found helpful.
       produces:
       - application/json
       parameters:
       - in: path
         type: integer
+        description: Required ID of the review to update
         name: review_id
         required: true
       responses:
@@ -109,13 +116,13 @@ paths:
       tags:
       - Reviews
       summary: Update review report state
-      description: |
-        By passing in the appropriate review id, you can update report property in given review in the system
+      description: Updates a review to show it was reported. Note, this action does not delete the review, but the review will not be returned in the above GET request.
       produces:
       - application/json
       parameters:
       - in: path
         type: integer
+        description: Required ID of the review to update
         name: review_id
         required: true
       responses:
@@ -133,25 +140,23 @@ paths:
     get:
       tags:
       - Metadata
-      summary: Search metadata to given product
-      description: |
-        By passing in the appropriate product id, you can search for
-        accumulated metadata from reviews to given product-id in the system
+      summary: Retrieve metadata
+      description: Returns review metadata for a given product.
       produces:
       - application/json
       parameters:
       - in: query
         name: product_id
-        description: pass `product-id` for looking up metadata to given product-id
+        description: Required ID of the product for which data should be returned
         required: true
         type: integer
       responses:
         200:
-          description: search results matching product-id
+          description: Search results matching product-id
           schema:
             $ref: '#/definitions/Meta'
         404:
-          description: bad input parameter
+          description: Bad input parameter
   
 definitions:
   Reviews:
