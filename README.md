@@ -1,4 +1,12 @@
-# Review-Service
+# Review-Service for Atelier e-commerce shop
+
+<a href="https://app.swaggerhub.com/apis-docs/MaxineSS/Atelier-API/1.0.0">
+  <img 
+       alt="SwaggerHub"
+       src="https://img.shields.io/badge/Swagger-Review--API%201.0.0-brightgreen"
+  /> 
+</a>
+
 
 <img width="960" alt="Screen Shot 2022-02-23 at 8 50 03 PM" src="https://user-images.githubusercontent.com/64869554/155487051-89694e62-413a-47e9-b335-83ea51440170.png">
 <img width="662" alt="Screen Shot 2022-02-23 at 8 54 02 PM" src="https://user-images.githubusercontent.com/64869554/155487060-eab2d4f7-999d-4059-8a14-2cf3a2caaf23.png">
