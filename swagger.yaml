@@ -12,15 +12,12 @@ host: 54.90.132.109
 basePath: /reviews
 
 securityDefinitions:
-  UserSecurity:
-   type: oauth2
-   authorizationUrl: http://swagger.io/api/oauth/dialog
-   flow: implicit
-   scopes:
-      read:reviews: read reviews to given product id
-      read:metadata: read metadata to given product id
+  api_key:
+   type: apiKey
+   name: Google API key
+   in: query
 security:
-  - UserSecurity: []
+  - api_key: []
   
 # tags are used for organizing operations
 tags:
