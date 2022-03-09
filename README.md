@@ -1,4 +1,8 @@
-# Review-Service for Atelier e-commerce shop
+<div align="center">
+  <h1>Atelier Review Service</h1>
+    <img src="https://user-images.githubusercontent.com/64869554/157360763-be33e46c-be89-4ab5-8f8f-945eabf78374.png">
+  <p>A backend API of review for Atelier e-commerce shop</p>
+</div>
 
 <a href="https://app.swaggerhub.com/apis-docs/MaxineSS/Atelier-API/1.0.0">
   <img 
